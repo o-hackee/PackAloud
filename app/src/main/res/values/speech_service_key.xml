@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="speech_service_subscription_key">6cf8a950b4354e4ab107bb25bc680399</string>
+    <string name="speech_service_region">westeurope</string>
+</resources>

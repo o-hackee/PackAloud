@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Pack Aloud</string>
+    <string name="title_item_detail">Item Detail</string>
+    <string name="hide">Hide</string>
+    <string name="show">Show</string>
+</resources>
