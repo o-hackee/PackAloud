@@ -48,18 +48,15 @@ class ThemeListFragment : Fragment() {
         // Click Listener to trigger navigation based on if you have
         // a single pane layout or two pane layout
         val onItemClickListener: (String) -> Unit = { itemId ->
-            val bundle = Bundle().also {
-                it.putString(ThemeDetailFragment.ARG_THEME_ID, itemId)
-            }
             // Leaving this not using view binding as it relies on if the view is visible the current
             // layout configuration (layout, layout-sw600dp)
             val itemDetailFragmentContainer: View? =
                 view.findViewById(R.id.item_detail_nav_container)
             if (itemDetailFragmentContainer != null) {
                 itemDetailFragmentContainer.findNavController()
-                    .navigate(R.id.fragment_item_detail, bundle)
+                    .navigate(R.id.fragment_item_detail, ThemeDetailFragmentArgs(itemId).toBundle())
             } else {
-                view.findNavController().navigate(R.id.show_item_detail, bundle)
+                view.findNavController().navigate(ThemeListFragmentDirections.showItemDetail(itemId))
             }
         }
 

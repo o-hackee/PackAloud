@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.navArgs
 import ol.ko.packaloud.databinding.FragmentThemeDetailBinding
 
 /**
@@ -18,23 +19,16 @@ import ol.ko.packaloud.databinding.FragmentThemeDetailBinding
  */
 class ThemeDetailFragment : Fragment() {
 
-    companion object {
-        const val ARG_THEME_ID = "theme_id"
-    }
-
     private lateinit var binding: FragmentThemeDetailBinding
     private val viewModel by activityViewModels<ThemeListViewModel>()
+    private val args: ThemeDetailFragmentArgs by navArgs()
 
     private var theme: PackTheme? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        arguments?.let {
-            it.getString(ARG_THEME_ID)?.let { themeId ->
-                theme = viewModel.getThemeById(themeId)
-            }
-        }
+        theme = viewModel.getThemeById(args.itemId)
     }
 
     override fun onCreateView(
