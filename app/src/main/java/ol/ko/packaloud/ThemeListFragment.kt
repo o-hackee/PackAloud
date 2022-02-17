@@ -9,9 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.findNavController
 import com.xwray.groupie.GroupieAdapter
 import com.xwray.groupie.Section
@@ -19,6 +17,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import ol.ko.packaloud.databinding.FragmentThemeListBinding
+import ol.ko.packaloud.databinding.SectionPackDescriptionBinding
 
 /**
  * A Fragment representing a list of Pings. This fragment
@@ -32,6 +31,7 @@ import ol.ko.packaloud.databinding.FragmentThemeListBinding
 class ThemeListFragment : Fragment() {
 
     private lateinit var binding: FragmentThemeListBinding
+    private lateinit var placeholderBinding: SectionPackDescriptionBinding
     private val viewModel by activityViewModels<ThemeListViewModel>()
 
     override fun onCreateView(
@@ -39,6 +39,7 @@ class ThemeListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentThemeListBinding.inflate(inflater, container, false)
+        placeholderBinding = SectionPackDescriptionBinding.bind(binding.root)
         return binding.root
     }
 
@@ -64,43 +65,40 @@ class ThemeListFragment : Fragment() {
         binding.itemList.adapter = themesAdapter
 
         lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                val bookmarks = BookmarkRepository(BookmarkDataStore.getInstance(requireContext()))
-                bookmarks.loadBookmark().combine(viewModel.packUi) { bookmarkRead, ui -> bookmarkRead to ui }.collect { (bookmarkRead, ui) ->
-                    val bookmark = bookmarkRead ?: 0
-                    Log.d("OLKO", "bookmark $bookmark")
+            val bookmarks = BookmarkRepository(BookmarkDataStore.getInstance(requireContext()))
+            bookmarks.loadBookmark().combine(viewModel.packUi) { bookmarkRead, ui -> bookmarkRead to ui }.collect { (bookmarkRead, ui) ->
+                val bookmark = bookmarkRead ?: 0
+                Log.d("OLKO", "bookmark $bookmark")
 
-                    (activity as AppCompatActivity?)?.supportActionBar?.title = ui?.pack?.title
-                    // TODO tablet layout
-                    binding.titleView?.text = ui?.pack?.title
-                    binding.authorView?.text = ui?.pack?.author
-                    binding.thanksView?.text = ui?.pack?.thanks
+                (activity as AppCompatActivity?)?.supportActionBar?.title = ui?.pack?.title
+                placeholderBinding.titleView.text = ui?.pack?.title
+                placeholderBinding.authorView.text = ui?.pack?.author
+                placeholderBinding.thanksView.text = ui?.pack?.thanks
 
-                    themesAdapter.clear()
-                    var idx = 0
-                    ui?.pack?.parts?.forEach { part ->
-                        val section = Section()
-                        section.setHeader(PartHeaderItem(part.name))
-                        section.addAll(part.themes.map {
-                            val themeIdx = idx++
-                            ThemeItem(it, onItemClickListener, themeIdx == bookmark, {
-                                lifecycleScope.launch {
-                                    bookmarks.saveBookmark(themeIdx)
-                                }
-                            })
-                        })
-                        themesAdapter.add(section)
-                    }
+                themesAdapter.clear()
+                var idx = 0
+                ui?.pack?.parts?.forEach { part ->
+                    val section = Section()
+                    section.setHeader(PartHeaderItem(part.name))
+                    section.addAll(part.themes.map {
+                        val themeIdx = idx++
+                        ThemeItem(it, onItemClickListener, themeIdx == bookmark) {
+                            lifecycleScope.launch {
+                                bookmarks.saveBookmark(themeIdx)
+                            }
+                        }
+                    })
+                    themesAdapter.add(section)
                 }
             }
         }
 
-        binding.hideButton?.setOnClickListener {
-            val hide = (binding.hideButton?.text == getString(R.string.hide))
-            binding.hideButton?.text = if (hide) getString(R.string.show) else getString(R.string.hide)
-            binding.titleView?.visibility = if (hide) View.INVISIBLE else View.VISIBLE
-            binding.authorView?.isVisible  = !hide
-            binding.thanksView?.isVisible = !hide
+        placeholderBinding.hideButton.setOnClickListener {
+            val hide = (placeholderBinding.hideButton.text == getString(R.string.hide))
+            placeholderBinding.hideButton.text = if (hide) getString(R.string.show) else getString(R.string.hide)
+            placeholderBinding.titleView.visibility = if (hide) View.INVISIBLE else View.VISIBLE
+            placeholderBinding.authorView.isVisible  = !hide
+            placeholderBinding.thanksView.isVisible = !hide
         }
     }
 }
