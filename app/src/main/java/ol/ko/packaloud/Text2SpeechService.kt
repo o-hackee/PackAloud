@@ -1,30 +1,15 @@
 package ol.ko.packaloud
 
 import android.content.Context
-import android.graphics.Color
-import android.os.Build
-import android.text.Spannable
-import android.text.style.ForegroundColorSpan
 import android.util.Log
-import android.view.View
 import com.microsoft.cognitiveservices.speech.SpeechConfig
 import com.microsoft.cognitiveservices.speech.SpeechSynthesisCancellationDetails
 import com.microsoft.cognitiveservices.speech.SpeechSynthesisEventArgs
 import com.microsoft.cognitiveservices.speech.SpeechSynthesizer
-import java.util.concurrent.Future
 
-class Text2SpeechService private constructor(val context: Context) {
+class Text2SpeechService constructor(private val context: Context) {
     companion object {
         private const val synthesisVoice = "ru-RU-DmitryNeural"
-
-        // TODO
-        private var instance: Text2SpeechService? = null
-
-        fun get(context: Context): Text2SpeechService {
-            return instance ?: Text2SpeechService(context.applicationContext).also {
-                instance = it
-            }
-        }
     }
 
     private val speechConfig: SpeechConfig by lazy {
@@ -46,12 +31,28 @@ class Text2SpeechService private constructor(val context: Context) {
     }
 
     fun clear() {
-        // TODO
         synthesizer.close()
         speechConfig.close()
     }
 
-    fun readAloud(text: String) {
-        synthesizer.SpeakTextAsync(text)
+    /**
+     * @param rate descriptive or numerical, hence string; 0.85 sounds good
+     * @param style: narration-professional, narration-relaxed or empty, i.e. NO express-as element
+     */
+    fun readAloud(text: String, rate: String, style: String) {
+        val textWithStyle = if (style.isEmpty()) text else
+"""            <mstts:express-as style="$style">
+                $text
+            </mstts:express-as>"""
+        val ssmlWrapped =
+"""<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis"
+       xmlns:mstts="https://www.w3.org/2001/mstts" xml:lang="ru-RU">
+    <voice name="$synthesisVoice">
+        <prosody rate="$rate">
+            $textWithStyle
+        </prosody>
+    </voice>
+</speak>"""
+        synthesizer.SpeakSsmlAsync(ssmlWrapped)
     }
 }

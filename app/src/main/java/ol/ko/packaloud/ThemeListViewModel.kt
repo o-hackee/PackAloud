@@ -5,11 +5,8 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
 
 class ThemeListViewModel(application: Application): AndroidViewModel(application) {
@@ -20,14 +17,20 @@ class ThemeListViewModel(application: Application): AndroidViewModel(application
     private val _packUi = MutableStateFlow<PackUi?>(null)
     val packUi: StateFlow<PackUi?> = _packUi
 
+    val speechService: Text2SpeechService
+
     init {
         viewModelScope.launch {
             val pack = readAssets()
-//            pack?.parts?.flatMap { it.themes }?.let {
-//                _themes.value = it
-//            }
             _packUi.value = PackUi(pack)
         }
+
+        speechService = Text2SpeechService(getApplication())
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        speechService.clear()
     }
 
     fun getThemeById(id: String): PackTheme? {

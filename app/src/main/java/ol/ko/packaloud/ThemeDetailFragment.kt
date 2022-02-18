@@ -54,7 +54,7 @@ class ThemeDetailFragment : Fragment() {
                 questionTv.text = "${index + 1}0. ${packTheme.questions[index]}"
                 questionTv.setOnClickListener {
                     questionTv.setTextColor(ContextCompat.getColor(requireContext(), R.color.dark_brown))
-                    Text2SpeechService.get(requireContext()).readAloud(packTheme.questions[index])
+                    viewModel.speechService.readAloud(packTheme.questions[index], "0.85", "")
                 }
                 answerTv.setOnClickListener { answerTv.text = packTheme.answers[index] }
             }
