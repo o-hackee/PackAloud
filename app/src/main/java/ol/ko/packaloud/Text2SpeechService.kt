@@ -40,6 +40,7 @@ class Text2SpeechService constructor(private val context: Context) {
      * @param style: narration-professional, narration-relaxed or empty, i.e. NO express-as element
      */
     fun readAloud(text: String, rate: String, style: String) {
+        Log.d("OLKO", "with rate $rate style $style")
         val textWithStyle = if (style.isEmpty()) text else
 """            <mstts:express-as style="$style">
                 $text

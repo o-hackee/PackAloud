@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".SettingsFragment">
+
+    <TextView
+        android:id="@+id/rateLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/rate"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editTextNumberDecimal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:ems="10"
+        android:hint="@string/rate_hint"
+        android:inputType="numberDecimal"
+        app:layout_constraintBottom_toBottomOf="@+id/rateLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/rateLabel"
+        app:layout_constraintTop_toTopOf="@+id/rateLabel" />
+
+    <TextView
+        android:id="@+id/styleLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/style"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editTextNumberDecimal"
+        android:layout_marginTop="16dp"/>
+
+    <Spinner
+        android:id="@+id/styleSpinner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/styleLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/styleLabel"
+        app:layout_constraintTop_toTopOf="@+id/styleLabel" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

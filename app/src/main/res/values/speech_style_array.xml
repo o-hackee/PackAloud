@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="speech_style_array">
+        <item>default</item>
+        <item>narration-professional</item>
+        <item>narration-relaxed</item>
+    </string-array>
+</resources>

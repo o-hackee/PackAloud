@@ -8,7 +8,11 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
+import ol.ko.packaloud.SpeechConfigStore.speechConfigPrefsDataStore
 import ol.ko.packaloud.databinding.FragmentThemeDetailBinding
 
 /**
@@ -24,6 +28,8 @@ class ThemeDetailFragment : Fragment() {
     private val args: ThemeDetailFragmentArgs by navArgs()
 
     private var theme: PackTheme? = null
+    private var rate = "0.85"
+    private var style = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +43,11 @@ class ThemeDetailFragment : Fragment() {
     ): View {
         binding = FragmentThemeDetailBinding.inflate(inflater, container, false)
         updateContent()
+        val settingsRepo = SpeechConfigRepository(requireContext().speechConfigPrefsDataStore)
+        lifecycleScope.launch {
+            settingsRepo.loadRate().first()?.let { rate = it }
+            settingsRepo.loadStyle().first()?.let { style = it }
+        }
         return binding.root
     }
 
@@ -54,7 +65,7 @@ class ThemeDetailFragment : Fragment() {
                 questionTv.text = "${index + 1}0. ${packTheme.questions[index]}"
                 questionTv.setOnClickListener {
                     questionTv.setTextColor(ContextCompat.getColor(requireContext(), R.color.dark_brown))
-                    viewModel.speechService.readAloud(packTheme.questions[index], "0.85", "")
+                    viewModel.speechService.readAloud(packTheme.questions[index], rate, style)
                 }
                 answerTv.setOnClickListener { answerTv.text = packTheme.answers[index] }
             }
