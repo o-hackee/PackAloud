@@ -1,4 +1,4 @@
-package ol.ko.packaloud
+package ol.ko.packaloud.ui
 
 import android.os.Bundle
 import android.util.Log
@@ -16,6 +16,9 @@ import com.xwray.groupie.Section
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
+import ol.ko.packaloud.BookmarkDataStore
+import ol.ko.packaloud.BookmarkRepository
+import ol.ko.packaloud.R
 import ol.ko.packaloud.databinding.FragmentThemeListBinding
 import ol.ko.packaloud.databinding.SectionPackDescriptionBinding
 

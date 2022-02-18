@@ -1,4 +1,4 @@
-package ol.ko.packaloud
+package ol.ko.packaloud.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -12,6 +12,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import ol.ko.packaloud.R
+import ol.ko.packaloud.SpeechConfigRepository
 import ol.ko.packaloud.SpeechConfigStore.speechConfigPrefsDataStore
 import ol.ko.packaloud.databinding.FragmentThemeDetailBinding
 
@@ -64,7 +66,9 @@ class ThemeDetailFragment : Fragment() {
             ).forEachIndexed { index, (questionTv, answerTv) ->
                 questionTv.text = "${index + 1}0. ${packTheme.questions[index]}"
                 questionTv.setOnClickListener {
-                    questionTv.setTextColor(ContextCompat.getColor(requireContext(), R.color.dark_brown))
+                    questionTv.setTextColor(ContextCompat.getColor(requireContext(),
+                        R.color.dark_brown
+                    ))
                     viewModel.speechService.readAloud(packTheme.questions[index], rate, style)
                 }
                 answerTv.setOnClickListener { answerTv.text = packTheme.answers[index] }

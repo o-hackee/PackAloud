@@ -1,8 +1,8 @@
-package ol.ko.packaloud
+package ol.ko.packaloud.ui
 
 import android.view.View
-import android.widget.Toast
 import com.xwray.groupie.viewbinding.BindableItem
+import ol.ko.packaloud.R
 import ol.ko.packaloud.databinding.ItemHeaderBinding
 import ol.ko.packaloud.databinding.ItemListContentBinding
 

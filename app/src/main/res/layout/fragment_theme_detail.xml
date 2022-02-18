@@ -4,7 +4,7 @@
     android:id="@+id/item_detail_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    tools:context=".ui.MainActivity"
     tools:ignore="MergeRootFrame">
 
     <ScrollView
@@ -32,7 +32,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textIsSelectable="false"
-                tools:context="ol.ko.packaloud.ThemeDetailFragment"
                 tools:text="10" />
             <TextView
                 android:id="@+id/answer10"
@@ -40,7 +39,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textIsSelectable="true"
-                tools:context="ol.ko.packaloud.ThemeDetailFragment"
                 android:background="@color/teal_200"/>
             <TextView
                 android:id="@+id/question20"
@@ -48,7 +46,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textIsSelectable="false"
-                tools:context="ol.ko.packaloud.ThemeDetailFragment"
                 tools:text="20"/>
             <TextView
                 android:id="@+id/answer20"
@@ -56,7 +53,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textIsSelectable="true"
-                tools:context="ol.ko.packaloud.ThemeDetailFragment"
                 android:background="@color/teal_200"/>
             <TextView
                 android:id="@+id/question30"
@@ -64,7 +60,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textIsSelectable="false"
-                tools:context="ol.ko.packaloud.ThemeDetailFragment"
                 tools:text="30"/>
             <TextView
                 android:id="@+id/answer30"
@@ -72,7 +67,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textIsSelectable="true"
-                tools:context="ol.ko.packaloud.ThemeDetailFragment"
                 android:background="@color/teal_200"/>
             <TextView
                 android:id="@+id/question40"
@@ -80,7 +74,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textIsSelectable="false"
-                tools:context="ol.ko.packaloud.ThemeDetailFragment"
                 tools:text="40"/>
             <TextView
                 android:id="@+id/answer40"
@@ -88,7 +81,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textIsSelectable="true"
-                tools:context="ol.ko.packaloud.ThemeDetailFragment"
                 android:background="@color/teal_200"/>
             <TextView
                 android:id="@+id/question50"
@@ -96,7 +88,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textIsSelectable="false"
-                tools:context="ol.ko.packaloud.ThemeDetailFragment"
                 tools:text="50"/>
             <TextView
                 android:id="@+id/answer50"
@@ -104,7 +95,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textIsSelectable="true"
-                tools:context="ol.ko.packaloud.ThemeDetailFragment"
                 android:background="@color/teal_200"/>
         </LinearLayout>
 

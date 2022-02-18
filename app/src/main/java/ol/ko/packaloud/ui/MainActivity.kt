@@ -1,4 +1,4 @@
-package ol.ko.packaloud
+package ol.ko.packaloud.ui
 
 import android.os.Bundle
 import android.view.Menu
@@ -9,6 +9,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
+import ol.ko.packaloud.R
 import ol.ko.packaloud.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

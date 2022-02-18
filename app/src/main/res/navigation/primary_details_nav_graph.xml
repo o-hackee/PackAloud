@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/item_list_fragment"
-        android:name="ol.ko.packaloud.ThemeListFragment"
+        android:name="ol.ko.packaloud.ui.ThemeListFragment"
         android:label="ItemListFragment">
         <action
             android:id="@+id/show_item_detail"
@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/item_detail_fragment"
-        android:name="ol.ko.packaloud.ThemeDetailFragment"
+        android:name="ol.ko.packaloud.ui.ThemeDetailFragment"
         android:label="item_detail"
         tools:layout="@layout/fragment_theme_detail">
         <argument
@@ -25,7 +25,7 @@
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="ol.ko.packaloud.SettingsFragment"
+        android:name="ol.ko.packaloud.ui.SettingsFragment"
         android:label="@string/settings"
         tools:layout="@layout/fragment_settings" />
 </navigation>

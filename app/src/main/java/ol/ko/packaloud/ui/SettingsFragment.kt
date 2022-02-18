@@ -1,4 +1,4 @@
-package ol.ko.packaloud
+package ol.ko.packaloud.ui
 
 import android.os.Bundle
 import android.text.Editable
@@ -13,6 +13,8 @@ import android.widget.ArrayAdapter
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import ol.ko.packaloud.R
+import ol.ko.packaloud.SpeechConfigRepository
 import ol.ko.packaloud.SpeechConfigStore.speechConfigPrefsDataStore
 import ol.ko.packaloud.databinding.FragmentSettingsBinding
 
@@ -52,7 +54,8 @@ class SettingsFragment : Fragment() {
             })
         }
 
-        binding.styleSpinner.adapter = ArrayAdapter.createFromResource(requireContext(), R.array.speech_style_array, android.R.layout.simple_spinner_item)
+        binding.styleSpinner.adapter = ArrayAdapter.createFromResource(requireContext(),
+            R.array.speech_style_array, android.R.layout.simple_spinner_item)
         lifecycleScope.launch {
             val style = settingsRepo.loadStyle().first()
             binding.styleSpinner.setSelection(
